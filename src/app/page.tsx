@@ -168,7 +168,10 @@ export default function MobileMealApp() {
             const allergyMatch = originalName.match(/\(([^)]+)\)/);
             const allergyCodes = allergyMatch ? allergyMatch[1].split('.') : [];
             const allergyNames = allergyCodes.map(code => allergyMap[code]).filter(Boolean);
-            const searchName = originalName.replace(/\([^)]*\)/g, '').replace(/[0-9.*]/g, '').trim();
+            const searchName = originalName
+                .replace(/\([^)]*\)/g, '') // 괄호와 그 안의 내용 제거
+                .replace(/[0-9.*#]/g, '')  // 숫자, 점, 별표, 샵(#) 제거 [cite: 2026-04-22]
+                .trim();
 
             if (!searchName) return null;
             const isExpanded = expandedIndex === idx;
@@ -186,12 +189,25 @@ export default function MobileMealApp() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <button
                                 onClick={(e) => {
-                                    e.stopPropagation();
-                                    window.open(`https://www.google.com/search?q=${encodeURIComponent(searchName)}`, '_blank');
+                                    e.stopPropagation(); // 아코디언 토글 방지
+                                    // Vercel 환경에서 차단을 방지하기 위해 표준적인 창 열기 방식 사용
+                                    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchName)}`;
+                                    const newWindow = window.open(searchUrl, '_blank', 'noopener,noreferrer');
+
+                                    // 만약 팝업이 차단되었다면 사용자에게 알림 (디버깅용)
+                                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                                        alert('검색창 팝업이 차단되었습니다. 브라우저 설정에서 팝업을 허용해주세요.');
+                                    }
                                 }}
                                 style={{
-                                    background: 'var(--primary)', border: 'none', borderRadius: '10px',
-                                    padding: '6px 14px', color: 'white', fontSize: '12px', fontWeight: 'bold'
+                                    background: 'var(--primary)',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    padding: '6px 14px',
+                                    color: 'white',
+                                    fontSize: '12px',
+                                    fontWeight: 'bold',
+                                    cursor: 'pointer'
                                 }}
                             >
                                 검색
@@ -389,9 +405,45 @@ export default function MobileMealApp() {
 
             {selectedSchool?.code && (
                 <section>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--calendar-hover)', padding: '16px 22px', borderRadius: '20px', marginBottom: '25px', border: '1px solid var(--border)' }}>
-                        <span style={{ fontSize: '1.1rem', fontWeight: '800', color: 'var(--primary)' }}>{selectedSchool.name}</span>
-                        <button onClick={goHome} style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', padding: '7px 15px', borderRadius: '12px', fontSize: '13px', fontWeight: '700', color: 'var(--text-main)' }}>변경</button>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        background: 'var(--calendar-hover)',
+                        padding: '16px 22px',
+                        borderRadius: '20px',
+                        marginBottom: '25px',
+                        border: '1px solid var(--border)',
+                        gap: '12px' // 버튼과 텍스트 사이 최소 간격 확보 [cite: 2026-04-22]
+                    }}>
+                        <span style={{
+                            fontSize: '1.1rem',
+                            fontWeight: '800',
+                            color: 'var(--primary)',
+                            flex: 1, // 남은 공간 모두 차지 [cite: 2026-04-22]
+                            whiteSpace: 'nowrap', // 줄바꿈 방지 [cite: 2026-04-22]
+                            overflow: 'hidden', // 넘치는 텍스트 숨김 [cite: 2026-04-22]
+                            textOverflow: 'ellipsis', // 말줄임표(...) 표시 [cite: 2026-04-22]
+                            minWidth: 0 // flex 아이템의 최소 너비 제한 해제 (말줄임표 작동 필수) [cite: 2026-04-22]
+                        }}>
+                            {selectedSchool.name}
+                        </span>
+                        <button
+                            onClick={goHome}
+                            style={{
+                                background: 'var(--card-bg)',
+                                border: '1px solid var(--border)',
+                                padding: '7px 15px',
+                                borderRadius: '12px',
+                                fontSize: '13px',
+                                fontWeight: '700',
+                                color: 'var(--text-main)',
+                                flexShrink: 0, // 버튼이 찌그러지지 않도록 고정 [cite: 2026-04-22]
+                                whiteSpace: 'nowrap' // 버튼 내부 텍스트 줄바꿈 방지 [cite: 2026-04-22]
+                            }}
+                        >
+                            변경
+                        </button>
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', padding: '0 10px' }}>
@@ -406,7 +458,7 @@ export default function MobileMealApp() {
                         </motion.div>
                         <button onClick={() => changeView(1)} style={{ background: 'var(--border)', border: 'none', borderRadius: '50%', width: '38px', height: '38px', color: 'var(--text-main)' }}>▶</button>
                     </div>
-                    
+
                     <div style={{ overflow: 'hidden', touchAction: 'pan-y' }}>
                         <motion.div drag="x" animate={controls} onDragEnd={handleDragEnd} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.25}>
                             <Calendar
