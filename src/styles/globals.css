@@ -1,0 +1,250 @@
+:root {
+    --primary: #4f46e5;
+    --bg: #ffffff;
+    --card-bg: #ffffff;
+    --text-main: #111827;
+    --text-sub: #4b5563;
+    --border: #f3f4f6;
+    --calendar-hover: #f3f4f6;
+}
+
+[data-theme='dark'] {
+    --bg: #111827;
+    --card-bg: #1f2937;
+    --text-main: #f9fafb;
+    --text-sub: #9ca3af;
+    --border: #374151;
+    --calendar-hover: #374151;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+}
+
+.container {
+    background-color: var(--bg);
+    color: var(--text-main);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* React Calendar 커스텀 */
+.react-calendar {
+    background: var(--card-bg) !important;
+    color: var(--text-main) !important;
+    width: 100% !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    margin-bottom: 20px;
+}
+
+.meal-card {
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #f3f4f6; }
+
+    /* 기존 스타일에 아래 내용을 추가하세요 */
+
+* {
+  box-sizing: border-box;
+  /* 모바일 터치 시 발생하는 하이라이트 제거 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  /* 모바일에서 바운스 스크롤 방지 (선택 사항) */
+  overscroll-behavior-y: none;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  /* 모바일 하단 바에 가려지지 않도록 패딩 추가 */
+  padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
+  background: #ffffff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+.btn {
+  /* 터치하기 좋은 최소 높이 44px 이상 확보 */
+  min-height: 48px;
+  font-size: 16px; /* 모바일 입력창 자동 확대 방지를 위한 최소 폰트 크기 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.btn:active {
+  /* 터치 시 피드백 제공 */
+  opacity: 0.7;
+}
+
+/* 급식 카드 내 텍스트 모바일 최적화 */
+.meal-card {
+  font-size: 15px;
+  line-height: 1.6;
+  word-break: keep-all; /* 한글 줄바꿈 예쁘게 */
+}
+
+/* 기존 스타일에 아래 내용을 추가하세요 */
+
+* {
+    box-sizing: border-box;
+    /* 모바일 터치 시 발생하는 하이라이트 제거 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    /* 모바일에서 바운스 스크롤 방지 (선택 사항) */
+    overscroll-behavior-y: none;
+}
+
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    /* 모바일 하단 바에 가려지지 않도록 패딩 추가 */
+    padding: 20px 20px calc(20px + env(safe-area-inset-bottom));
+    background: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.btn {
+    /* 터치하기 좋은 최소 높이 44px 이상 확보 */
+    min-height: 48px;
+    font-size: 16px;
+    /* 모바일 입력창 자동 확대 방지를 위한 최소 폰트 크기 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.btn:active {
+    /* 터치 시 피드백 제공 */
+    opacity: 0.7;
+}
+
+/* 급식 카드 내 텍스트 모바일 최적화 */
+.meal-card {
+    font-size: 15px;
+    line-height: 1.6;
+    word-break: keep-all;
+    /* 한글 줄바꿈 예쁘게 */
+}
+
+/* 기존 스타일에 추가 */
+.meal-item-card {
+    background: #ffffff;
+    border: 1px solid #f3f4f6;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.meal-item-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.meal-item-content {
+    background: #f9fafb;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #4b5563;
+    border-top: 1px solid #f3f4f6;
+}
+
+.allergy-tag {
+    display: inline-block;
+    background: #fee2e2;
+    color: #ef4444;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+
+/* 기본 달력 헤더 숨기기 */
+.react-calendar__navigation {
+    display: none !important;
+}
+
+.react-calendar {
+    width: 100% !important;
+    border: none !important;
+    font-family: inherit !important;
+}
+
+.react-calendar__month-view__weekdays {
+    font-weight: 700;
+    color: #9ca3af;
+    text-decoration: none !important;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    color: var(--text-sub) !important;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #ef4444 !important; /* 일요일 빨간색 */
+}
+
+.react-calendar__month-view__days__day--weekend:nth-child(7n) {
+    color: #3b82f6 !important; /* 토요일 파란색 */
+}
+
+.react-calendar__tile {
+    color: var(--text-main) !important;
+    border-radius: 12px !important; /* 모든 타일을 둥글게 통일 */
+    transition: background 0.2s;
+    aspect-ratio: 1; /* 가로세로 비율 유지 */
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+    background-color: var(--calendar-hover) !important;
+    border-radius: 12px;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: var(--text-sub) !important;
+    opacity: 0.3;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+.react-calendar__tile--now {
+    background: var(--calendar-hover) !important;
+        color: var(--primary) !important;
+    font-weight: 800;
+}
