@@ -24,4 +24,3 @@ pnpm-debug.log*
 
 # 에디터 설정
 /.vscode
-*.editorconfig
