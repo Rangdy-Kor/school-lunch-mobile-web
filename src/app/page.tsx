@@ -189,15 +189,10 @@ export default function MobileMealApp() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <button
                                 onClick={(e) => {
-                                    e.stopPropagation(); // 아코디언 토글 방지
-                                    // Vercel 환경에서 차단을 방지하기 위해 표준적인 창 열기 방식 사용
+                                    e.stopPropagation();
                                     const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchName)}`;
-                                    const newWindow = window.open(searchUrl, '_blank', 'noopener,noreferrer');
-
-                                    // 만약 팝업이 차단되었다면 사용자에게 알림 (디버깅용)
-                                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                                        alert('검색창 팝업이 차단되었습니다. 브라우저 설정에서 팝업을 허용해주세요.');
-                                    }
+                                    // 새 창 대신 현재 창에서 이동하여 차단 원천 방지
+                                    window.location.href = searchUrl;
                                 }}
                                 style={{
                                     background: 'var(--primary)',
